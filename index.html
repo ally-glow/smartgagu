@@ -55,8 +55,9 @@
     <button onclick="pageFlip.flipPrev()">◀ 이전</button>
     <button onclick="pageFlip.flipNext()">다음 ▶</button>
   </div>
-  <script src="https://unpkg.com/stpageflip@2.0.6/dist/js/stpageflip.min.js"></script>
-  <script>
+<script src="https://unpkg.com/stpageflip@2.0.6/dist/js/stpageflip.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
     const pageFlip = new St.PageFlip(document.getElementById('flipbook'), {
       width: 800,
       height: 600,
@@ -70,6 +71,12 @@
       showCover: false
     });
     pageFlip.loadFromHTML(document.querySelectorAll('.page'));
-  </script>
+
+    // 버튼 이벤트도 여기 안에 같이 넣자
+    document.querySelector(".controls button:nth-child(1)").onclick = () => pageFlip.flipPrev();
+    document.querySelector(".controls button:nth-child(2)").onclick = () => pageFlip.flipNext();
+  });
+</script>
+
 </body>
 </html>
