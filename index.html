@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Smart Flipbook with Buttons</title>
+  <title>Smart Flipbook</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/stpageflip@2.0.6/dist/css/stpageflip.min.css">
   <style>
@@ -40,21 +41,20 @@
 </head>
 <body>
   <div id="flipbook">
-    <div class="page" data-density="soft"><img src="page_1.png" alt="Page 1"></div>
-    <div class="page" data-density="soft"><img src="page_2.png" alt="Page 2"></div>
-    <div class="page" data-density="soft"><img src="page_3.png" alt="Page 3"></div>
-    <div class="page" data-density="soft"><img src="page_4.png" alt="Page 4"></div>
-    <div class="page" data-density="soft"><img src="page_5.png" alt="Page 5"></div>
-    <div class="page" data-density="soft"><img src="page_6.png" alt="Page 6"></div>
-    <div class="page" data-density="soft"><img src="page_7.png" alt="Page 7"></div>
-    <div class="page" data-density="soft"><img src="page_8.png" alt="Page 8"></div>
-  </div>
+<div class="page" data-density="soft"><img src="./page_1.png" alt="Page 1"></div>
+<div class="page" data-density="soft"><img src="./page_2.png" alt="Page 2"></div>
+<div class="page" data-density="soft"><img src="./page_3.png" alt="Page 3"></div>
+<div class="page" data-density="soft"><img src="./page_4.png" alt="Page 4"></div>
+<div class="page" data-density="soft"><img src="./page_5.png" alt="Page 5"></div>
+<div class="page" data-density="soft"><img src="./page_6.png" alt="Page 6"></div>
+<div class="page" data-density="soft"><img src="./page_7.png" alt="Page 7"></div>
+<div class="page" data-density="soft"><img src="./page_8.png" alt="Page 8"></div>
 
+  </div>
   <div class="controls">
     <button>◀ 이전</button>
     <button>다음 ▶</button>
   </div>
-
   <script src="https://unpkg.com/stpageflip@2.0.6/dist/js/stpageflip.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -70,10 +70,8 @@
         mobileScrollSupport: true,
         showCover: false
       });
-
       pageFlip.loadFromHTML(document.querySelectorAll('.page'));
 
-      // 버튼 연결
       document.querySelector(".controls button:nth-child(1)").onclick = () => pageFlip.flipPrev();
       document.querySelector(".controls button:nth-child(2)").onclick = () => pageFlip.flipNext();
     });
