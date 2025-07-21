@@ -3,59 +3,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SmartGagu Flipbook (Mobile)</title>
+  <title>SmartGagu Flipbook with Buttons (Fixed Image)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="https://unpkg.com/stpageflip@2.0.6/dist/css/stpageflip.min.css">
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background: #fafafa;
-      overflow: hidden;
+      background: #f5f5f5;
       height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
     }
-    #flipbook {
+    #flipbook-container {
+      position: relative;
       width: 100vw;
       height: 100vh;
     }
+    .page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: none;
+    }
     .page img {
-      width: 100%;
-      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
       object-fit: contain;
+      display: block;
+      margin: auto;
+      position: absolute;
+      top: 0; bottom: 0; left: 0; right: 0;
+    }
+    .page.active {
+      display: block;
+    }
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      z-index: 10;
+    }
+    #prevBtn {
+      left: 10px;
+    }
+    #nextBtn {
+      right: 10px;
     }
   </style>
 </head>
 <body>
-  <div id="flipbook">
-    <div class="page"><img src="page_1.png" alt="Page 1"></div>
-    <div class="page"><img src="page_2.png" alt="Page 2"></div>
-    <div class="page"><img src="page_3.png" alt="Page 3"></div>
-    <div class="page"><img src="page_4.png" alt="Page 4"></div>
-    <div class="page"><img src="page_5.png" alt="Page 5"></div>
-    <div class="page"><img src="page_6.png" alt="Page 6"></div>
-    <div class="page"><img src="page_7.png" alt="Page 7"></div>
-    <div class="page"><img src="page_8.png" alt="Page 8"></div>
+  <div id="flipbook-container">
+    <div class="page active" id="page1"><img src="page_1.png" alt="Page 1"></div>
+    <div class="page " id="page2"><img src="page_2.png" alt="Page 2"></div>
+    <div class="page " id="page3"><img src="page_3.png" alt="Page 3"></div>
+    <div class="page " id="page4"><img src="page_4.png" alt="Page 4"></div>
+    <div class="page " id="page5"><img src="page_5.png" alt="Page 5"></div>
+    <div class="page " id="page6"><img src="page_6.png" alt="Page 6"></div>
+    <div class="page " id="page7"><img src="page_7.png" alt="Page 7"></div>
+    <div class="page " id="page8"><img src="page_8.png" alt="Page 8"></div>
 
+    <button class="nav-btn" id="prevBtn">&#8592;</button>
+    <button class="nav-btn" id="nextBtn">&#8594;</button>
   </div>
-  <script src="stpageflip.min.js"></script>
   <script>
-    window.addEventListener("load", function () {
-      const flipbook = document.getElementById("flipbook");
-      if (!flipbook) return;
-      const pageFlip = new St.PageFlip(flipbook, {
-        width: window.innerWidth,
-        height: window.innerHeight,
-        size: "stretch",
-        minWidth: 315,
-        minHeight: 420,
-        maxWidth: 2000,
-        maxHeight: 2500,
-        showCover: false,
-        mobileScrollSupport: false,
-        usePortrait: true,
-        startPage: 0
-      });
-      pageFlip.loadFromHTML(document.querySelectorAll(".page"));
+    let currentPage = 1;
+    const totalPages = 8;
+
+    const showPage = (pageNum) => {
+      for (let i = 1; i <= totalPages; i++) {
+        document.getElementById("page" + i).classList.remove("active");
+      }
+      document.getElementById("page" + pageNum).classList.add("active");
+    };
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        showPage(currentPage);
+      }
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        showPage(currentPage);
+      }
     });
   </script>
 </body>
