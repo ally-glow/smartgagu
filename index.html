@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SmartGagu Flipbook with Buttons (Fixed Image)</title>
+  <title>SmartGagu Flipbook (Viewport Fix)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <style>
     html, body {
@@ -14,19 +14,26 @@
       overflow: hidden;
       font-family: sans-serif;
     }
+
+    :root {
+      --vh: 1vh;
+    }
+
     #flipbook-container {
       position: relative;
       width: 100vw;
-      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
     }
+
     .page {
       position: absolute;
       top: 0;
       left: 0;
       width: 100vw;
-      height: 100vh;
+      height: 100%;
       display: none;
     }
+
     .page img {
       max-width: 100%;
       max-height: 100%;
@@ -38,9 +45,11 @@
       position: absolute;
       top: 0; bottom: 0; left: 0; right: 0;
     }
+
     .page.active {
       display: block;
     }
+
     .nav-btn {
       position: absolute;
       top: 50%;
@@ -53,12 +62,9 @@
       cursor: pointer;
       z-index: 10;
     }
-    #prevBtn {
-      left: 10px;
-    }
-    #nextBtn {
-      right: 10px;
-    }
+
+    #prevBtn { left: 10px; }
+    #nextBtn { right: 10px; }
   </style>
 </head>
 <body>
@@ -75,7 +81,16 @@
     <button class="nav-btn" id="prevBtn">&#8592;</button>
     <button class="nav-btn" id="nextBtn">&#8594;</button>
   </div>
+
   <script>
+    // dynamic viewport height fix
+    function setVh() {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    window.addEventListener('resize', setVh);
+    window.addEventListener('load', setVh);
+
     let currentPage = 1;
     const totalPages = 8;
 
